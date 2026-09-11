@@ -1,0 +1,9 @@
+/* Overview header controls: consistent hit areas and visual alignment. */
+.content>header .actions{display:flex;align-items:center;gap:8px;min-height:40px}
+.content>header .actions>button{height:40px;min-width:40px;padding:0 11px;border:1px solid #d8d7e4;border-radius:12px;background:#fbf8ff;display:inline-flex;align-items:center;justify-content:center;gap:7px;color:#555766;line-height:1;box-shadow:none}
+.content>header .actions>button:first-child{min-width:76px;white-space:nowrap}
+.content>header .actions>button:nth-child(2){width:40px;padding:0;position:relative}
+.content>header .actions>button:nth-child(2)::after{content:"";position:absolute;right:8px;top:7px;width:7px;height:7px;border-radius:50%;background:#f06721;border:2px solid #fbf8ff}
+.content>header .actions>button svg{width:18px;height:18px;flex:none;stroke-width:1.8}
+.content>header .actions>i{width:40px!important;height:40px!important;min-width:40px;border:0;border-radius:50%;background:#002bae;color:#fff;display:grid!important;place-items:center;font-size:11px;font-style:normal;font-weight:800;line-height:1}
+@media(max-width:700px){.content>header .actions>button{display:none}}
