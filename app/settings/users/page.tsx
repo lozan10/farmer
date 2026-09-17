@@ -1,1 +1,1 @@
-export { default } from '../../profile-settings/page';
+export { default } from '@/components/UserManagement';

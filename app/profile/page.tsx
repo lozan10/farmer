@@ -1,1 +1,1 @@
-export default function Profile(){return <main>Profile</main>}
+export { default } from '@/components/UserProfile';

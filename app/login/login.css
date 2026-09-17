@@ -1,0 +1,81 @@
+/* Palette + metrics sampled from the ExoLink sign-in screen. */
+.login-shell{
+  --lg-blue:#1b2ba6;          /* deep royal blue: button, accents */
+  --lg-blue-hover:#152392;
+  --lg-blue-soft:#e7e9fb;     /* selected/focus tint */
+  --lg-panel:#e9eaf2;         /* card panel */
+  --lg-input:#ffffff;         /* input fields */
+  --lg-border:#d7d8e4;
+  --lg-ink:#20222c;
+  --lg-muted:#6d6f7e;
+  min-height:100vh;display:flex;flex-direction:column;
+  background-color:#f4f5fb;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46' viewBox='0 0 46 46'%3E%3Cpath d='M15 31c-4.5-6 0-14.5 8.5-18.5-2 8.5-2 14.5-8.5 18.5z' fill='none' stroke='%23159947' stroke-width='1.1' opacity='0.12'/%3E%3C/svg%3E");
+  color:var(--lg-ink);
+}
+.login-top{display:flex;align-items:center;justify-content:space-between;padding:24px 30px}
+.login-top .login-logo{height:32px;width:auto;display:block}
+.login-top .login-chrome{display:flex;gap:20px;font-size:13px;font-weight:600;color:var(--lg-blue)}
+
+.login-main{flex:1;display:grid;place-items:center;align-content:center;padding:12px 20px 56px}
+.login-card{
+  width:min(452px,100%);background:var(--lg-panel);
+  border:1px solid #dcdde8;border-radius:20px;
+  box-shadow:0 18px 50px #1718240d;
+  padding:40px 44px 36px;
+}
+/* Two-tone key, matching the image (deep-blue bow, periwinkle shaft). */
+.login-key{width:64px;height:64px;margin:0 auto 20px;display:grid;place-items:center}
+.login-key svg{width:56px;height:56px}
+.login-card h1{font-size:27px;font-weight:700;letter-spacing:-.02em;margin:0 0 6px;text-align:center}
+.login-card>p{font-size:13px;color:var(--lg-muted);margin:0 0 26px;text-align:center}
+
+.login-form label{display:flex;flex-direction:column;gap:8px;font-size:12px;font-weight:600;color:#3b3d4a;margin-bottom:16px}
+.login-field{position:relative;display:flex;align-items:center}
+.login-field>svg{position:absolute;left:15px;width:18px;height:18px;color:var(--lg-muted);pointer-events:none}
+.login-field input{width:100%;height:54px;border:1px solid var(--lg-border);border-radius:14px;background:var(--lg-input);padding:0 46px 0 44px;font:inherit;font-size:14px;font-weight:400;outline:none;transition:border-color .15s,box-shadow .15s}
+.login-field input::placeholder{color:#9c9eab}
+.login-field input:focus{border-color:var(--lg-blue);box-shadow:0 0 0 3px var(--lg-blue-soft)}
+.login-field .toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:auto;border:0;background:transparent;color:var(--lg-muted);cursor:pointer;display:grid;place-items:center;width:34px;height:34px;padding:0;border-radius:9px}
+.login-field .toggle:hover{background:#00000008;color:var(--lg-ink)}
+.login-field .toggle svg{width:18px;height:18px}
+.login-row{display:flex;align-items:center;justify-content:space-between;margin:4px 0 22px;font-size:13px}
+.login-row .remember{display:flex;align-items:center;gap:8px;font-weight:400;color:#4d4f5d;margin:0}
+.login-row .remember input{accent-color:var(--lg-blue);width:15px;height:15px}
+.login-row a{color:var(--lg-blue);font-weight:600;text-decoration:none}
+.login-row a:hover{text-decoration:underline}
+.login-submit{width:100%;height:54px;border:0;border-radius:12px;background:var(--lg-blue);color:#fff;font:inherit;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .2s,transform .12s}
+.login-submit:hover{background:var(--lg-blue-hover)}
+.login-submit:not(:disabled):active{transform:scale(.985)}
+.login-submit:disabled{opacity:.7;cursor:default}
+.login-submit.success{background:#159947}
+.login-submit svg{width:18px;height:18px}
+.login-error{color:#b3261e;font-size:12.5px;margin:0 0 16px;background:#fdecea;border:1px solid #f6cfca;border-radius:12px;padding:11px 13px}
+.login-hint{font-size:13px;color:var(--lg-muted);text-align:center;margin:22px 0 0}
+.login-hint a{color:var(--lg-blue);font-weight:600;text-decoration:none}
+.login-ver{text-align:center;font-size:12px;color:#a9aab6;margin:20px 0 0}
+
+/* ── Animations ───────────────────────────────────────────────────── */
+@keyframes lg-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes lg-pop{0%{opacity:0;transform:scale(.82)}62%{transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+@keyframes lg-shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}30%,50%,70%{transform:translateX(-5px)}40%,60%{transform:translateX(5px)}}
+@keyframes lg-spin{to{transform:rotate(360deg)}}
+@keyframes lg-fadeout{to{opacity:0;transform:translateY(-8px)}}
+.login-top{animation:lg-rise .5s cubic-bezier(.22,1,.36,1) both}
+.login-card{animation:lg-rise .55s cubic-bezier(.22,1,.36,1) both}
+.login-key{animation:lg-pop .6s .12s cubic-bezier(.34,1.56,.64,1) both}
+.login-card h1,.login-card>p,.login-form,.login-hint{animation:lg-rise .5s cubic-bezier(.22,1,.36,1) both}
+.login-card>p{animation-delay:.06s}
+.login-form{animation-delay:.12s}
+.login-hint{animation-delay:.18s}
+.login-error{animation:lg-shake .42s cubic-bezier(.36,.07,.19,.97) both}
+.login-spinner{display:inline-block;width:17px;height:17px;border:2px solid #ffffff59;border-top-color:#fff;border-radius:50%;animation:lg-spin .6s linear infinite}
+.login-shell.leaving .login-card{animation:lg-fadeout .5s ease forwards}
+
+@media(max-width:520px){
+  .login-top{padding:18px 20px}
+  .login-card{padding:32px 24px 28px;border-radius:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .login-top,.login-card,.login-key,.login-card h1,.login-card>p,.login-form,.login-hint,.login-error,.login-spinner,.login-shell.leaving .login-card{animation:none}
+}

@@ -1,34 +1,22 @@
 import { NextResponse } from 'next/server';
+import { getCounts } from '@/lib/farmerlink';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 export async function GET() {
-  const endpoint = process.env.FARMERLINK_API_URL;
-  const token = process.env.FARMERLINK_API_TOKEN;
-
-  if (!endpoint || !token) {
+  if (!process.env.FARMERLINK_EMAIL || !process.env.FARMERLINK_PASSWORD) {
     return NextResponse.json({
       connected: false,
-      reason: 'FarmerLink connector is ready but not configured.',
-      required: ['FARMERLINK_API_URL', 'FARMERLINK_API_TOKEN'],
+      reason: 'Add FARMERLINK_EMAIL and FARMERLINK_PASSWORD to .env to enable live data.',
     });
   }
-
   try {
-    const response = await fetch(endpoint, {
-      headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
-      cache: 'no-store',
-    });
-    if (!response.ok) {
-      return NextResponse.json(
-        { connected: false, reason: `FarmerLink returned ${response.status}.` },
-        { status: 502 },
-      );
-    }
-    return NextResponse.json({ connected: true, data: await response.json() });
-  } catch {
+    const counts = await getCounts();
+    return NextResponse.json({ connected: true, counts, fetchedAt: new Date().toISOString() });
+  } catch (e) {
     return NextResponse.json(
-      { connected: false, reason: 'FarmerLink could not be reached.' },
+      { connected: false, reason: e instanceof Error ? e.message : 'FarmerLink login failed.' },
       { status: 502 },
     );
   }

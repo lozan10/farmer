@@ -1,0 +1,42 @@
+.profile-side nav a{text-decoration:none;display:block}
+.profile-side nav a button{width:100%}
+.profile-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:14px;margin-top:14px}
+.profile-grid .user-section{margin-top:0}
+.profile-grid h2{font-size:15px;margin:0 0 12px}
+.profile-facts{list-style:none;padding:0;margin:0;display:grid;gap:12px;font-size:12px;color:#454754}
+.profile-facts li{display:flex;align-items:center;gap:9px}
+.profile-facts svg{width:16px;height:16px;flex:none;color:#002bae}
+.profile-bio{font-size:12px;color:#717381;margin:16px 0 0;line-height:1.5}
+.profile-form>label{display:flex;flex-direction:column;gap:7px;font-size:11px;font-weight:700;margin-top:14px}
+.profile-form input,.profile-form textarea{border:1px solid #dedde9;border-radius:11px;padding:10px;font:inherit;font-size:12px;font-weight:400;background:#fff}
+@media(max-width:800px){.profile-grid{grid-template-columns:1fr}}
+.pw-input{position:relative;display:flex}
+.pw-input input{flex:1;padding-right:38px!important}
+.pw-input button{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#717381;cursor:pointer;display:grid;place-items:center}
+.pw-input svg{width:16px;height:16px;flex:none}
+.gen-pw{margin-top:8px;border:0;background:transparent;color:#002bae;font:inherit;font-size:11px;font-weight:700;display:flex;align-items:center;gap:6px;cursor:pointer;padding:0}
+.gen-pw svg{width:14px;height:14px;flex:none}
+.module-picker{border:1px solid #dedde9;border-radius:14px;margin:14px 0 0;padding:10px 12px 12px;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.module-picker legend{font-size:11px;font-weight:700;padding:0 6px;display:flex;gap:10px;align-items:center}
+.module-picker legend button{border:0;background:none;color:#002bae;font:inherit;font-size:10px;cursor:pointer}
+.module-picker label{display:flex!important;flex-direction:row!important;align-items:center;gap:8px!important;margin:0!important;font-size:11.5px!important;font-weight:400!important;padding:8px;border-radius:10px;border:1px solid #ecebf3;cursor:pointer}
+.module-picker label.on{background:#e8eaff;border-color:#c5caff;color:#002bae}
+.module-picker input{accent-color:#002bae;width:auto!important;height:auto!important}
+.form-error{color:#b3261e;font-size:11.5px;margin:10px 0 0}
+.module-count{font-size:10px;background:#eef7f0;color:#1a7f43;padding:5px 8px;border-radius:16px;white-space:nowrap}
+.user-modal{max-height:calc(100vh - 32px);overflow-y:auto}
+@media(max-width:560px){.module-picker{grid-template-columns:1fr}}
+.user-table td:last-child button{width:34px;height:34px;border-radius:10px;display:inline-grid;place-items:center;cursor:pointer}
+.user-table td:last-child button:hover{background:#e8eaff;color:#002bae}
+.user-table td:last-child button svg{width:16px;height:16px}
+.email-input svg{width:16px;height:16px;flex:none}
+
+/* Sign-in & security section on the profile page. */
+.security-section{margin-top:14px}
+.sec-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.12em;font-weight:800;color:#7d7f8e}
+.sec-eyebrow svg{width:13px;height:13px}
+.security-section .section-top h2{margin:8px 0 0}
+.security-section .req{font-weight:400;font-style:normal;color:#9293a2;font-size:10px;text-transform:none;letter-spacing:0;margin-left:6px}
+.security-section .modal-actions .save{display:flex;align-items:center;gap:7px}
+.security-section .modal-actions .save svg{width:15px;height:15px}
+.security-section .modal-actions .save:disabled{opacity:.7;cursor:default}
