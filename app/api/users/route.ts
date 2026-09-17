@@ -1,8 +1,21 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { getSession } from '@/lib/session';
 
 export const dynamic = 'force-dynamic';
+
+/** Only administrators may create or edit users. */
+async function requireAdmin() {
+  const session = await getSession();
+  if (!session?.isAdmin) {
+    return NextResponse.json(
+      { ok: false, reason: 'Only administrators can manage users.' },
+      { status: 403 },
+    );
+  }
+  return null;
+}
 
 // Columns returned to the client — never the hash.
 const SELECT = 'id,name,email,role,status,initials,modules';
@@ -40,6 +53,8 @@ function clean(body: Partial<Payload>) {
 
 /** Create a user. Body: Payload (password required). */
 export async function POST(req: Request) {
+  const notAdmin = await requireAdmin();
+  if (notAdmin) return notAdmin;
   const blocked = guard();
   if (blocked) return blocked;
   let body: Partial<Payload>;
@@ -71,6 +86,8 @@ export async function POST(req: Request) {
 
 /** Update a user. Body: Payload & { id }; password optional (blank = keep). */
 export async function PUT(req: Request) {
+  const notAdmin = await requireAdmin();
+  if (notAdmin) return notAdmin;
   const blocked = guard();
   if (blocked) return blocked;
   let body: Partial<Payload> & { id?: string };

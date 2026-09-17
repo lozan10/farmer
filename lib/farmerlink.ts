@@ -64,6 +64,7 @@ function chromePath(): string | undefined {
 let browser: Browser | null = null;
 let context: BrowserContext | null = null;
 let loginInFlight: Promise<void> | null = null;
+let countsInFlight: Promise<Counts> | null = null;
 let cache: { at: number; counts: Counts } | null = null;
 
 const CACHE_MS = 60_000; // match the dashboard's 60s auto-refresh
@@ -198,21 +199,30 @@ async function fetchCounts(): Promise<Counts> {
 
 export async function getCounts(): Promise<Counts> {
   if (cache && Date.now() - cache.at < CACHE_MS) return cache.counts;
-  await ensureLogin();
-  let counts: Counts;
-  try {
-    counts = await fetchCounts();
-  } catch (e) {
-    if (e instanceof Error && e.message === 'SESSION_EXPIRED') {
-      context = null;
-      await browser?.close().catch(() => {});
-      browser = null;
-      await ensureLogin();
+  // Coalesce concurrent requests: while a login+fetch is running (which can take
+  // 20-60s on a cold start), everyone awaits the same promise instead of each
+  // launching its own browser work and stacking up into timeouts.
+  if (countsInFlight) return countsInFlight;
+  countsInFlight = (async () => {
+    await ensureLogin();
+    let counts: Counts;
+    try {
       counts = await fetchCounts();
-    } else {
-      throw e;
+    } catch (e) {
+      if (e instanceof Error && e.message === 'SESSION_EXPIRED') {
+        context = null;
+        await browser?.close().catch(() => {});
+        browser = null;
+        await ensureLogin();
+        counts = await fetchCounts();
+      } else {
+        throw e;
+      }
     }
-  }
-  cache = { at: Date.now(), counts };
-  return counts;
+    cache = { at: Date.now(), counts };
+    return counts;
+  })().finally(() => {
+    countsInFlight = null;
+  });
+  return countsInFlight;
 }

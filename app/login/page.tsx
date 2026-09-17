@@ -34,6 +34,7 @@ export default function Login() {
       });
       const data = await res.json();
       if (data.ok) {
+        try { localStorage.setItem('fl_user', JSON.stringify(data.user)); } catch { /* ignore */ }
         setDone(true);
         setTimeout(() => router.push('/'), 650); // let the success state play
         return;
