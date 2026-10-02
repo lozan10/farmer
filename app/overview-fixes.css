@@ -63,3 +63,31 @@
   .view-swap,.view-swap .stats article,.view-swap .grid>.panel,.profile-pop,.settings-sub{animation:none}
   .side nav button:hover{transform:none}
 }
+
+/* ── Communication materials (upload + gallery) ───────────────────── */
+.materials-panel{margin-top:13px;grid-column:1}
+.materials-panel .mat-upload{height:36px;border:0;border-radius:11px;background:#002bae;color:#fff;display:flex;align-items:center;gap:7px;padding:0 14px;font:inherit;font-size:12px;font-weight:650;cursor:pointer}
+.materials-panel .mat-upload:disabled{opacity:.7;cursor:default}
+.materials-panel .mat-upload svg{width:16px;height:16px}
+.dropzone{margin-top:14px;border:1.5px dashed #c7c6da;border-radius:16px;background:#f7f6fd;padding:26px 18px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;color:#555766}
+.dropzone:hover,.dropzone.over{border-color:#002bae;background:#eef0ff}
+.dropzone svg{width:26px;height:26px;color:#002bae}
+.dropzone span{font-size:13px}
+.dropzone b{color:#002bae}
+.dropzone em{font-size:11px;color:#8a8c9a;font-style:normal}
+.mat-error{margin:12px 0 0;font-size:12px;color:#b3261e;background:#fdecea;border:1px solid #f6cfca;border-radius:10px;padding:9px 12px}
+.mat-empty{margin:18px 0 6px;font-size:12.5px;color:#8a8c9a;text-align:center}
+.mat-grid{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.mat-card{margin:0;border:1px solid #e7e6f0;border-radius:14px;overflow:hidden;background:#fff}
+.mat-thumb{aspect-ratio:16/10;background:#11131b;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mat-thumb a,.mat-thumb img,.mat-thumb video{width:100%;height:100%;display:block}
+.mat-thumb img,.mat-thumb video{object-fit:cover}
+.mat-card figcaption{display:flex;align-items:center;gap:9px;padding:10px 11px}
+.mat-type{width:30px;height:30px;flex:none;border-radius:9px;background:#eef0ff;color:#002bae;display:grid;place-items:center}
+.mat-type svg{width:15px;height:15px}
+.mat-meta{min-width:0;flex:1}
+.mat-meta b{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mat-meta small{font-size:10px;color:#8a8c9a}
+.mat-del{border:0;background:transparent;color:#9293a2;cursor:pointer;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:none}
+.mat-del:hover{background:#fdecea;color:#b3261e}
+.mat-del svg{width:15px;height:15px}

@@ -71,3 +71,46 @@ insert into public.user_profiles (id, name, email, phone, location, role, organi
    'Administrator','Trust&Trade pilot',
    'Coordinates farmer onboarding and traceability for the pilot program.')
 on conflict (id) do nothing;
+
+-- ---------------------------------------------------------------------------
+-- card_values: admin-editable numbers shown on the dashboard stat cards.
+-- Key format: "<module>|<card label>", e.g. "Communication|Radio ads aired".
+-- Written only through /api/card-values, which checks the admin session and
+-- uses the service role key, so no anon policy is needed.
+-- ---------------------------------------------------------------------------
+create table if not exists public.card_values (
+  key text primary key,
+  value text not null default '',
+  updated_by text,
+  updated_at timestamptz not null default now()
+);
+alter table public.card_values enable row level security;
+
+-- ---------------------------------------------------------------------------
+-- communication_materials: images/videos uploaded in the Communication module.
+-- Files live in the public "communication-materials" storage bucket; this table
+-- holds their metadata. Uploads go through /api/communication (admin session +
+-- service role issues a signed upload URL); the browser uploads straight to
+-- Storage, so large videos don't hit the serverless request-body limit.
+-- ---------------------------------------------------------------------------
+create table if not exists public.communication_materials (
+  id          uuid primary key default gen_random_uuid(),
+  name        text not null,
+  type        text not null,            -- MIME type, e.g. image/png, video/mp4
+  path        text not null,            -- object path inside the bucket
+  url         text not null,            -- public URL
+  size        bigint,
+  uploaded_by text,
+  created_at  timestamptz not null default now()
+);
+alter table public.communication_materials enable row level security;
+-- Anyone signed into the dashboard can list materials (read goes through the
+-- server/service role too, but this keeps direct reads working).
+drop policy if exists comm_materials_read on public.communication_materials;
+create policy comm_materials_read on public.communication_materials for select to anon using (true);
+
+-- Public storage bucket for the files (public URLs for viewing; writes are
+-- authorized per-upload by a signed URL the server issues to admins).
+insert into storage.buckets (id, name, public)
+values ('communication-materials', 'communication-materials', true)
+on conflict (id) do nothing;
