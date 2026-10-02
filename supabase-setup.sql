@@ -114,3 +114,21 @@ create policy comm_materials_read on public.communication_materials for select t
 insert into storage.buckets (id, name, public)
 values ('communication-materials', 'communication-materials', true)
 on conflict (id) do nothing;
+
+-- ---------------------------------------------------------------------------
+-- comm_records: Communication module activities (radio ads, banners, SMS...).
+-- Read by every signed-in user; written only through /api/communications,
+-- which checks the admin session and uses the service role key.
+-- ---------------------------------------------------------------------------
+create table if not exists public.comm_records (
+  id uuid primary key default gen_random_uuid(),
+  ref text unique not null,
+  type text not null default '',
+  title text not null default '',
+  district text not null default '',
+  quantity text not null default '',
+  status text not null default 'Completed',
+  happened_on date,
+  created_at timestamptz not null default now()
+);
+alter table public.comm_records enable row level security;

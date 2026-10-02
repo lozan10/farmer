@@ -6,15 +6,15 @@ import { supabase } from '@/lib/supabase';
 import '../app/profile-settings/profile-settings.css';
 import '../app/profile/profile.css';
 
-const MODULES=['Overview','Farm management','Supply management','Trading','Training','Traceability','Lots & transactions'];
+const MODULES=['Overview','Training','Traceability','Lots & transactions','Communication','Value Chain Actors','Global map'];
 type User = { id:string; name:string; email:string; role:string; status:'Active'|'Invited'|'Suspended'; initials:string; password:string; modules:string[] };
 // Columns persisted to Supabase (public.app_users). Passwords are hashed server-side.
 const DB_COLS='id,name,email,role,status,initials,modules';
 const seed:User[]=[
   {id:'1',name:'Kenneth Owori',email:'kenneth@trustandtrade.org',role:'Administrator',status:'Active',initials:'KO',password:'',modules:MODULES},
-  {id:'2',name:'Sarah Nakato',email:'sarah.nakato@trustandtrade.org',role:'Farm Manager',status:'Active',initials:'SN',password:'',modules:['Overview','Farm management','Supply management']},
-  {id:'3',name:'David Okello',email:'david.okello@trustandtrade.org',role:'Field Officer',status:'Active',initials:'DO',password:'',modules:['Overview','Farm management','Traceability']},
-  {id:'4',name:'Mercy Achieng',email:'mercy.achieng@trustandtrade.org',role:'Data Analyst',status:'Invited',initials:'MA',password:'',modules:['Overview','Trading','Lots & transactions']},
+  {id:'2',name:'Sarah Nakato',email:'sarah.nakato@trustandtrade.org',role:'Farm Manager',status:'Active',initials:'SN',password:'',modules:['Overview','Training','Value Chain Actors']},
+  {id:'3',name:'David Okello',email:'david.okello@trustandtrade.org',role:'Field Officer',status:'Active',initials:'DO',password:'',modules:['Overview','Traceability']},
+  {id:'4',name:'Mercy Achieng',email:'mercy.achieng@trustandtrade.org',role:'Data Analyst',status:'Invited',initials:'MA',password:'',modules:['Overview','Lots & transactions']},
   {id:'5',name:'Ivan Mugisha',email:'ivan.mugisha@trustandtrade.org',role:'Viewer',status:'Suspended',initials:'IM',password:'',modules:['Overview']},
 ];
 const blank={name:'',email:'',role:'Viewer',status:'Active' as 'Active'|'Invited'|'Suspended',password:'',confirm:'',modules:['Overview'] as string[]};
